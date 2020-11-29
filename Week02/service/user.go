@@ -1,24 +1,23 @@
 package service
 
 import (
-    "Week02/dao"
-    "Week02/model"
+	"Week02/biz"
+	"fmt"
 )
 
 // 服务层
-var defaultUserDao *dao.UserDao
-
-func init() {
-    defaultUserDao = dao.NewUserDao()
-}
-
-type UserService struct {
-}
-
-func NewUserService() *UserService {
-    return &UserService{}
-}
-
-func (service *UserService) GetAllUsers() ([]model.User, error) {
-    return defaultUserDao.GetAllUsers()
+func ApiHasUserWithName(name string) (result bool, err error) {
+	names, err := biz.GetAllUsersName()
+	if err != nil {
+		// 错误处理
+		fmt.Printf("service: error: %+v\n", err)
+		return
+	}
+	for _, n := range names {
+		if n == name {
+			result = true
+			return
+		}
+	}
+	return
 }
