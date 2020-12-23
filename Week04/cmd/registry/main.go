@@ -11,9 +11,10 @@ import (
 )
 
 func main() {
+	e := gin.New()
 	server := &http.Server{
 		Addr:    ":8000",
-		Handler: gin.New(),
+		Handler: e,
 	}
 
 	registry.RegisterLoginHTTPServer(e)
